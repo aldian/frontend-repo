@@ -2,34 +2,20 @@
 
 A `Next.js` example app that provides UI to access internal API endpoints. Those endpoints are exemplified [here](https://github.com/aldian/backend-repo).
 
+It uses Firebase login.
 
-# Redux Toolkit TypeScript Example
+## Local manual test
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
-
-**Redux Toolkit**(also known as "RTK" for short) provides a standardized way to write Redux logic. It includes utilities that help simplify many common use cases, including [store setup](https://redux-toolkit.js.org/api/configureStore), [creating reducers and writing immutable update logic](https://redux-toolkit.js.org/api/createreducer), and even [creating entire "slices" of state at once](https://redux-toolkit.js.org/api/createslice). This example showcases each of these features in conjunction with Next.js.
-
-## Deploy Your Own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
-
-## How to Use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-redux with-redux-app
+To test the frontend locally, you need to specify some environment variables. To do that easily, add a `.env.local` file with content similar to the following:
 ```
-
-```bash
-yarn create next-app --example with-redux with-redux-app
+USERS_API_TOKEN=your-secret-token
+USERS_API_BASE_URL=http://localhost:3000
+APP_BASE_URL=http://localhost
+APP_PORT=3001
+NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-web-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=localhost
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-firebase-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-firebase-project-id.appspot.com
+NEXT_PUBLIC_FIREBASE_APP_ID=fake-app-id
+NEXT_PUBLIC_FIREBASE_EMULATOR_HOST=localhost:9099
 ```
-
-```bash
-pnpm create next-app --example with-redux with-redux-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-

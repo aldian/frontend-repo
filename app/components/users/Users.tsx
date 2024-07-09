@@ -1,3 +1,4 @@
+// ./app/components/users/Users.tsx
 "use client";
 import React, { useState } from 'react';
 import { User, UsersProps, useGetUsersQuery } from "@/lib/features/users/usersApi";
@@ -13,10 +14,17 @@ import {
 } from "@mui/material";
 import AddUserDialog from './AddUserDialog';
 import EditUserDialog from './EditUserDialog';
+import { useAuth } from '../../AuthContext';
+import Login from '../Login';
 
 export const Users: React.FC<UsersProps> = ({ data }) => {
+  const { user } = useAuth();
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const { data: users, isError, isLoading } = useGetUsersQuery({ id: undefined });
+
+  if (!user) {
+    return <Login />;
+  }
 
   if (isLoading && !users) {
     return <CircularProgress />;
