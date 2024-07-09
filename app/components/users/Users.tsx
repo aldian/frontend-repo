@@ -1,6 +1,6 @@
 "use client";
+import React, { useState } from 'react';
 import { User, UsersProps, useGetUsersQuery } from "@/lib/features/users/usersApi";
-import { useState } from "react";
 import {
   Container,
   Typography,
@@ -12,10 +12,11 @@ import {
   Alert,
 } from "@mui/material";
 import AddUserDialog from './AddUserDialog';
+import EditUserDialog from './EditUserDialog';
 
 export const Users: React.FC<UsersProps> = ({ data }) => {
-  const [userId, setUserId] = useState<string | undefined>(undefined);
-  const { data: users, isError, isLoading, isSuccess } = useGetUsersQuery({ id: userId });
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const { data: users, isError, isLoading } = useGetUsersQuery({ id: undefined });
 
   if (isLoading && !users) {
     return <CircularProgress />;
@@ -24,6 +25,14 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
   if (isError) {
     return <Alert severity="error">Failed to load users</Alert>;
   }
+
+  const handleUserClick = (user: User) => {
+    setSelectedUser(user);
+  };
+
+  const handleCloseEditDialog = () => {
+    setSelectedUser(null);
+  };
 
   return (
     <Container maxWidth="sm">
@@ -38,12 +47,15 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
           <ListItem
             key={user.id}
             sx={{ cursor: 'pointer' }}
-            onClick={() => { /* Add your click handler logic here */ }}
+            onClick={() => handleUserClick(user)}
           >
             <ListItemText primary={user.name} />
           </ListItem>
         ))}
       </List>
+      {selectedUser && (
+        <EditUserDialog user={selectedUser} onClose={handleCloseEditDialog} />
+      )}
     </Container>
   );
 };
