@@ -48,4 +48,16 @@ const handler = async (req, res) => {
   }
 };
 
-module.exports = handler;
+async function fetchUsers() {
+  const response = await fetch(`${process.env.USERS_API_BASE_URL}/fetch-user-data`, {
+    headers: {
+      'Authorization': `Bearer ${process.env.USERS_API_TOKEN}`,
+    },
+  });
+  return await response.json();
+}
+
+module.exports = {
+  handler,
+  fetchUsers,
+};

@@ -5,6 +5,11 @@ export interface User {
   name: string;
 }
 
+export interface UsersProps {
+    data: User[];
+  }
+
+
 // Define a service using a base URL and expected endpoints
 export const usersApi = createApi({
   baseQuery: fetchBaseQuery({ 
