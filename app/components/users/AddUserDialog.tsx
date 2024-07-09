@@ -13,12 +13,13 @@ import {
   CircularProgress
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import { useUpdateUserMutation } from "@/lib/features/users/usersApi";
 
 const AddUserDialog: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [newUserName, setNewUserName] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [updateUser, { isLoading }] = useUpdateUserMutation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,29 +32,15 @@ const AddUserDialog: React.FC = () => {
   };
 
   const handleAddUser = async () => {
-    setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name: newUserName }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add user');
-      }
-
+      await updateUser({ name: newUserName }).unwrap();
       // Close the dialog after adding the user
       handleClose();
     } catch (err) {
       const errorMessage = (err as Error).message;
       setError(errorMessage);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -75,16 +62,16 @@ const AddUserDialog: React.FC = () => {
             fullWidth
             value={newUserName}
             onChange={(e) => setNewUserName(e.target.value)}
-            disabled={loading}
+            disabled={isLoading}
           />
           {error && <Typography color="error">{error}</Typography>}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary" disabled={loading}>
+          <Button onClick={handleClose} color="primary" disabled={isLoading}>
             Cancel
           </Button>
-          <Button onClick={handleAddUser} color="primary" disabled={loading}>
-            {loading ? <CircularProgress size={24} /> : 'Add'}
+          <Button onClick={handleAddUser} color="primary" disabled={isLoading}>
+            {isLoading ? <CircularProgress size={24} /> : 'Add'}
           </Button>
         </DialogActions>
       </Dialog>
