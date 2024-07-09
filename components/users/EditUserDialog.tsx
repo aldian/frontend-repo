@@ -12,7 +12,7 @@ import {
   Button,
   CircularProgress
 } from "@mui/material";
-import { User, useUpdateUserMutation } from "@/lib/features/users/usersApi";
+import { User, useUpdateUserMutation } from "@/store/users/usersApi";
 
 interface EditUserDialogProps {
   user: User | null;

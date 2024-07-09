@@ -1,7 +1,7 @@
 // ./app/components/users/Users.tsx
 "use client";
 import React, { useState } from 'react';
-import { User, UsersProps, useGetUsersQuery } from "@/lib/features/users/usersApi";
+import { User, UsersProps, useGetUsersQuery } from "@/store/users/usersApi";
 import {
   Container,
   Typography,
@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import AddUserDialog from './AddUserDialog';
 import EditUserDialog from './EditUserDialog';
-import { useAuth } from '../../AuthContext';
+import { useAuth } from '../../app/AuthContext';
 import Login from '../Login';
 
 export const Users: React.FC<UsersProps> = ({ data }) => {
