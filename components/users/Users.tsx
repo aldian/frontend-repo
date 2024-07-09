@@ -1,7 +1,7 @@
 // ./app/components/users/Users.tsx
 "use client";
 import React, { useState } from 'react';
-import { User, UsersProps, useGetUsersQuery } from "@/store/lib/features/users/usersApi";
+import { User, UsersProps, useGetUsersQuery } from "@/store/users/usersApi";
 import {
   Container,
   Typography,
