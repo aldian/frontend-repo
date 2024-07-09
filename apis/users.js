@@ -20,7 +20,7 @@ const handler = async (req, res) => {
     } else if (method === 'POST') {
       // Handle POST requests
       const postData = JSON.parse(body);
-      response = await fetch(`${process.env.USERS_API_BASE_URL}/fetch-user-data`, {
+      response = await fetch(`${process.env.USERS_API_BASE_URL}/update-user-data`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.USERS_API_TOKEN}`,

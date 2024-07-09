@@ -25,7 +25,18 @@ app.prepare().then(() => {
 
     if (pathname === '/api/users') {
       req.query = querystring.parse(query);
-      users_api_handler(req, res);
+      if (req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+          body += chunk.toString();
+        });
+        req.on('end', () => {
+          req.body = body;
+          users_api_handler(req, res);
+        });
+      } else {
+        users_api_handler(req, res);
+      }
     } else {
       handle(req, res, parsedUrl);
     }
