@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { StoreProvider } from "./StoreProvider";
+import { StoreProvider } from "../store/StoreProvider";
 import { AuthProvider } from "./AuthContext";
 
 import "./styles/globals.css";

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import AddUserDialog from './AddUserDialog';
 import EditUserDialog from './EditUserDialog';
-import { useAuth } from '../../AuthContext';
+import { useAuth } from '../../app/AuthContext';
 import Login from '../Login';
 
 export const Users: React.FC<UsersProps> = ({ data }) => {

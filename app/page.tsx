@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Users } from "./components/users/Users";
+import { Users } from "../components/users/Users";
 import { fetchUsers } from "../apis/users";
 
 export default async function IndexPage() {
