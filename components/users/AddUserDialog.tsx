@@ -13,7 +13,7 @@ import {
   CircularProgress
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { useUpdateUserMutation } from "@/lib/features/users/usersApi";
+import { useUpdateUserMutation } from "@/store/lib/features/users/usersApi";
 
 const AddUserDialog: React.FC = () => {
   const [open, setOpen] = useState(false);
