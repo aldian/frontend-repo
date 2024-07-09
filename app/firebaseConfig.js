@@ -11,10 +11,4 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-if (process.env.FIREBASE_EMULATOR_HOST) {
-    connectAuthEmulator(auth, `http://${process.env.FIREBASE_EMULATOR_HOST}`);
-}
-
-export { auth };
+export const auth = getAuth(app);
