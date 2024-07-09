@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const handler = async (req, res) => {
   const { method, query, body } = req;
 

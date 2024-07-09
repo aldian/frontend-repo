@@ -1,30 +1,40 @@
 "use client";
 import { useGetUsersQuery } from "@/lib/features/users/usersApi";
 import { useState } from "react";
-import { User } from "@/lib/features/users/usersApi"; // Import the User type
+import { User } from "@/lib/features/users/usersApi";
+import {
+  Container,
+  Typography,
+  CircularProgress,
+  Alert,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 
 export const Users = () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
-  // Using a query hook automatically fetches data and returns query values
   const { data, isError, isLoading, isSuccess } = useGetUsersQuery({ id: userId });
 
   return (
-    <div>
-      <h1>Users</h1>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error fetching users.</p>}
+    <Container maxWidth="sm">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Users
+      </Typography>
+      {isLoading && <CircularProgress />}
+      {isError && <Alert severity="error">Error fetching users.</Alert>}
       {isSuccess && Array.isArray(data) && (
-        <ul>
+        <List>
           {data.map((user: User) => (
-            <li key={user.id}>{user.name}</li>
+            <ListItem key={user.id}>
+              <ListItemText primary={user.name} />
+            </ListItem>
           ))}
-        </ul>
+        </List>
       )}
       {isSuccess && !Array.isArray(data) && (
-        <div>
-          <p>{data.name}</p>
-        </div>
+        <Alert severity="info">{data.name}</Alert>
       )}
-    </div>
+    </Container>
   );
 };
