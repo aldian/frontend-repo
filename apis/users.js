@@ -40,8 +40,9 @@ const handler = async (req, res) => {
     }
 
     const data = await response.json();
+    const responseData = method === 'GET' && !Array.isArray(data) ? [data] : data;
     res.writeHead(response.status, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(data));
+    res.end(JSON.stringify(responseData));
   } catch (error) {
     res.writeHead(500, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Internal Server Error' }));

@@ -22,7 +22,7 @@ export const usersApi = createApi({
     // Supply generics for the return type (in this case `UsersApiResponse`)
     // and the expected query argument. If there is no argument, use `void`
     // for the argument type instead.
-    getUsers: build.query<User[]| User, { id?: string; limit?: number }>({
+    getUsers: build.query<User[], { id?: string; limit?: number }>({
       query: ({id, limit}) => {
         const params = new URLSearchParams();
         if (id !== undefined) {
