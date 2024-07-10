@@ -1,27 +1,24 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuth } from '../app/AuthContext';
-import {
-  Container,
-  TextField,
-  Button,
-  Typography,
-  Box
-} from '@mui/material';
+import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { setEmail, setPassword, setError, resetLoginState } from '@/store/loginSlice';
 
 const Login = () => {
   const { login } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
+  const { email, password, error } = useSelector((state: RootState) => state.login);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await login(email, password);
-      setError(null);
+      dispatch(setError(null));
+      dispatch(resetLoginState());
     } catch (err) {
-      setError((err as Error).message);
+      dispatch(setError((err as Error).message));
     }
   };
 
@@ -38,7 +35,7 @@ const Login = () => {
             fullWidth
             margin="normal"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => dispatch(setEmail(e.target.value))}
             required
           />
           <TextField
@@ -47,7 +44,7 @@ const Login = () => {
             fullWidth
             margin="normal"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => dispatch(setPassword(e.target.value))}
             required
           />
           {error && <Typography color="error">{error}</Typography>}

@@ -4,6 +4,7 @@ import usersReducer, { usersApi } from "./users/usersApi";
 import authReducer, { initializeAuthListener } from './authSlice';
 import userSelectionReducer from './userSelectionSlice';
 import userDialogReducer from './userDialogSlice';
+import loginReducer from './loginSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   userDialog: userDialogReducer,
   [usersApi.reducerPath]: usersApi.reducer,
   users: usersReducer,
+  login: loginReducer,
 });
 
 // Infer the `RootState` type from the root reducer
