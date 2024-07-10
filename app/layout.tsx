@@ -12,8 +12,8 @@ interface Props {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <AuthProvider>
-      <StoreProvider>
+    <StoreProvider>
+      <AuthProvider>
         <html lang="en">
           <body>
             <section className={styles.container}>
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Props) {
             </section>
           </body>
         </html>
-      </StoreProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </StoreProvider>
   );
 }
