@@ -1,4 +1,3 @@
-// ./app/components/users/Users.tsx
 "use client";
 import React, { useState } from 'react';
 import { User, UsersProps, useGetUsersQuery } from "@/store/users/usersApi";
