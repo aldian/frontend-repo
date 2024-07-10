@@ -61,4 +61,11 @@ const authSlice = createSlice({
 });
 
 export const { setUser } = authSlice.actions;
+
+export const initializeAuthListener = () => (dispatch: any) => {
+  onAuthStateChanged(auth, (user) => {
+    dispatch(setUser(user));
+  });
+};
+
 export default authSlice.reducer;

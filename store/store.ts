@@ -1,7 +1,7 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore, combineReducers } from "@reduxjs/toolkit";
 import { usersApi } from "./users/usersApi";
-import authReducer from './authSlice';
+import authReducer, { initializeAuthListener } from './authSlice';
 import userSelectionReducer from './userSelectionSlice';
 
 // `combineSlices` automatically combines the reducers using
@@ -21,7 +21,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 // server-side rendering (SSR) scenarios. In SSR, separate store instances
 // are needed for each request to prevent cross-request state pollution.
 export const makeStore = () => {
-  return configureStore({
+  const store = configureStore({
     reducer: rootReducer,
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
@@ -29,6 +29,10 @@ export const makeStore = () => {
       return getDefaultMiddleware().concat(usersApi.middleware);
     },
   });
+
+  store.dispatch(initializeAuthListener());
+
+  return store;
 };
 
 // Infer the return type of `makeStore`

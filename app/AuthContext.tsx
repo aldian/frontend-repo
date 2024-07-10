@@ -1,10 +1,8 @@
 "use client";
-import React, { useEffect, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebaseConfig';
 import { RootState, AppDispatch } from '../store/store';
-import { setUser, login as reduxLogin, logout as reduxLogout } from '../store/authSlice';
+import { login as reduxLogin, logout as reduxLogout } from '../store/authSlice';
 
 interface AuthContextProps {
   user: any;
@@ -17,13 +15,6 @@ const AuthContext = React.createContext<AuthContextProps | undefined>(undefined)
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      dispatch(setUser(user));
-    });
-    return () => unsubscribe();
-  }, [dispatch]);
 
   const login = async (email: string, password: string): Promise<void> => {
     await dispatch(reduxLogin({ email, password })).unwrap();
