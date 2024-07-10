@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
-import { User, UsersProps, useGetUsersQuery } from "../../store/users/usersApi";
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import {
   Container,
   Typography,
@@ -11,6 +12,8 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
+import theme from "../../theme/theme";
+import { User, UsersProps, useGetUsersQuery } from "../../store/users/usersApi";
 import AddUserDialog from './AddUserDialog';
 import EditUserDialog from './EditUserDialog';
 import { useAuth } from '../../app/AuthContext';
@@ -57,27 +60,30 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Typography variant="h4" component="h1" gutterBottom>
-          Users
-        </Typography>
-        <AddUserDialog />
-      </Box>
-      <List>
-        {usersState.users.map((user: User) => (
-          <ListItem
-            key={user.id}
-            sx={{ cursor: 'pointer' }}
-            onClick={() => handleUserClick(user)}
-          >
-            <ListItemText primary={user.name} />
-          </ListItem>
-        ))}
-      </List>
-      {selectedUser && (
-        <EditUserDialog user={selectedUser} onClose={handleCloseEditDialog} />
-      )}
-    </Container>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Typography variant="h4" component="h1" gutterBottom>
+            Users
+          </Typography>
+          <AddUserDialog />
+        </Box>
+        <List>
+          {usersState.users.map((user: User) => (
+            <ListItem
+              key={user.id}
+              sx={{ cursor: 'pointer' }}
+              onClick={() => handleUserClick(user)}
+            >
+              <ListItemText primary={user.name} />
+            </ListItem>
+          ))}
+        </List>
+        {selectedUser && (
+          <EditUserDialog user={selectedUser} onClose={handleCloseEditDialog} />
+        )}
+      </Container>
+    </ThemeProvider>
   );
 };
