@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { User, UsersProps, useGetUsersQuery } from "@/store/users/usersApi";
+import { User, UsersProps, useGetUsersQuery } from "../../store/users/usersApi";
 import {
   Container,
   Typography,
@@ -18,22 +18,34 @@ import Login from '../Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { selectUser, clearSelection } from '@/store/userSelectionSlice';
+import { setUsers, setLoading, setError, initializeUsers } from '@/store/users/usersApi';
 
 export const Users: React.FC<UsersProps> = ({ data }) => {
   const { user } = useAuth();
   const dispatch: AppDispatch = useDispatch();
   const selectedUser = useSelector((state: RootState) => state.userSelection.selectedUser);
+  const usersState = useSelector((state: RootState) => state.users);
   const { data: users, isError, isLoading } = useGetUsersQuery({ id: undefined });
+
+  // Dispatch initializeUsers action with the data prop
+  dispatch(initializeUsers(data));
+
+  if (users && !isLoading && !isError) {
+    dispatch(setUsers(users));
+  }
+
+  dispatch(setLoading(isLoading));
+  dispatch(setError(isError));
 
   if (!user) {
     return <Login />;
   }
 
-  if (isLoading && !users) {
+  if (usersState.isLoading && !usersState.users.length) {
     return <CircularProgress />;
   }
 
-  if (isError) {
+  if (usersState.isError) {
     return <Alert severity="error">Failed to load users</Alert>;
   }
 
@@ -54,7 +66,7 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
         <AddUserDialog />
       </Box>
       <List>
-        {(users || data).map((user: User) => (
+        {usersState.users.map((user: User) => (
           <ListItem
             key={user.id}
             sx={{ cursor: 'pointer' }}
