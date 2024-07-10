@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { selectUser, clearSelection } from '@/store/userSelectionSlice';
 import { setUsers, setLoading, setError, initializeUsers } from '@/store/users/usersApi';
+import { openDialog } from '@/store/userDialogSlice';
 
 export const Users: React.FC<UsersProps> = ({ data }) => {
   const { user } = useAuth();
@@ -53,10 +54,7 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
 
   const handleUserClick = (user: User) => {
     dispatch(selectUser(user));
-  };
-
-  const handleCloseEditDialog = () => {
-    dispatch(clearSelection());
+    dispatch(openDialog({ isNewUser: false, userName: user.name, userId: user.id }));
   };
 
   return (
@@ -80,9 +78,7 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
             </ListItem>
           ))}
         </List>
-        {selectedUser && (
-          <EditUserDialog user={selectedUser} onClose={handleCloseEditDialog} />
-        )}
+        {selectedUser && <EditUserDialog user={selectedUser} />}
       </Container>
     </ThemeProvider>
   );

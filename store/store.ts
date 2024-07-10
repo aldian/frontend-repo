@@ -3,10 +3,12 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import usersReducer, { usersApi } from "./users/usersApi";
 import authReducer, { initializeAuthListener } from './authSlice';
 import userSelectionReducer from './userSelectionSlice';
+import userDialogReducer from './userDialogSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   userSelection: userSelectionReducer,
+  userDialog: userDialogReducer,
   [usersApi.reducerPath]: usersApi.reducer,
   users: usersReducer,
 });
