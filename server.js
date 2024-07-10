@@ -3,7 +3,7 @@ const { createServer } = require('http');
 const { parse } = require('url');
 const querystring = require('querystring');
 const next = require('next');
-const users_api_handler = require('./apis/users').handler; // Ensure the correct path
+const users_api_handler = require('./apis/users').handler;
 
 // Check if environment variables are defined
 const port = process.env.APP_PORT;

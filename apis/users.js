@@ -9,14 +9,12 @@ const handler = async (req, res) => {
     let response;
 
     if (method === 'GET') {
-      // Handle GET requests
       response = await fetch(`${process.env.USERS_API_BASE_URL}/fetch-user-data?${params.toString()}`, {
         headers: {
           'Authorization': `Bearer ${process.env.USERS_API_TOKEN}`,
         },
       });
     } else if (method === 'POST') {
-      // Handle POST requests
       const postData = JSON.parse(body);
       response = await fetch(`${process.env.USERS_API_BASE_URL}/update-user-data`, {
         method: 'POST',
