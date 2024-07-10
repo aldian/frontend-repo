@@ -27,7 +27,6 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
   const usersState = useSelector((state: RootState) => state.users);
   const { data: users, isError, isLoading } = useGetUsersQuery({ id: undefined });
 
-  // Dispatch initializeUsers action with the data prop
   dispatch(initializeUsers(data));
 
   if (users && !isLoading && !isError) {

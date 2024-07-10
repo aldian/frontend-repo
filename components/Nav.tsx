@@ -25,7 +25,7 @@ export const Nav = () => {
           variant="contained"
           color="secondary"
           onClick={handleLogout}
-          className={styles.logoutButton} // Ensure this style is defined in your CSS
+          className={styles.logoutButton}
         >
           Logout
         </Button>
