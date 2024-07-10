@@ -2,12 +2,14 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore, combineReducers } from "@reduxjs/toolkit";
 import { usersApi } from "./users/usersApi";
 import authReducer from './authSlice';
+import userSelectionReducer from './userSelectionSlice';
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
 //const rootReducer = combineSlices(usersApi);
 const rootReducer = combineReducers({
   auth: authReducer,
+  userSelection: userSelectionReducer,
   [usersApi.reducerPath]: usersApi.reducer,
 });
 

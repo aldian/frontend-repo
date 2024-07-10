@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import { User, UsersProps, useGetUsersQuery } from "@/store/users/usersApi";
 import {
   Container,
@@ -15,10 +15,14 @@ import AddUserDialog from './AddUserDialog';
 import EditUserDialog from './EditUserDialog';
 import { useAuth } from '../../app/AuthContext';
 import Login from '../Login';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '@/store/store';
+import { selectUser, clearSelection } from '@/store/userSelectionSlice';
 
 export const Users: React.FC<UsersProps> = ({ data }) => {
   const { user } = useAuth();
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const selectedUser = useSelector((state: RootState) => state.userSelection.selectedUser);
   const { data: users, isError, isLoading } = useGetUsersQuery({ id: undefined });
 
   if (!user) {
@@ -34,11 +38,11 @@ export const Users: React.FC<UsersProps> = ({ data }) => {
   }
 
   const handleUserClick = (user: User) => {
-    setSelectedUser(user);
+    dispatch(selectUser(user));
   };
 
   const handleCloseEditDialog = () => {
-    setSelectedUser(null);
+    dispatch(clearSelection());
   };
 
   return (
